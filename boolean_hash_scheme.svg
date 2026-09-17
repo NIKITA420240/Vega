@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#253348"/>
+    </marker>
+    <style>
+      .title { font: 700 36px 'Segoe UI', Arial, sans-serif; fill: #152238; }
+      .subtitle { font: 400 19px 'Segoe UI', Arial, sans-serif; fill: #516074; }
+      .label { font: 600 22px 'Segoe UI', Arial, sans-serif; fill: #152238; }
+      .small { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #38485d; }
+      .formula { font: 600 20px 'Cambria Math', 'Times New Roman', serif; fill: #152238; }
+      .wire { stroke: #253348; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .wire-no-arrow { stroke: #253348; stroke-width: 4; fill: none; }
+      .block { fill: #eef4ff; stroke: #3767a6; stroke-width: 3; rx: 12; }
+      .state { fill: #fff1dc; stroke: #c77816; stroke-width: 3; }
+      .mix { fill: #e9f8ef; stroke: #258454; stroke-width: 4; rx: 16; }
+      .note { fill: #f6f8fb; stroke: #aeb8c7; stroke-width: 2; rx: 16; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#f8fafc"/>
+
+  <text x="800" y="58" text-anchor="middle" class="title">Булева итеративная хеш-функция</text>
+  <text x="800" y="91" text-anchor="middle" class="subtitle">256-битное состояние · константа C · циклическое произведение над 𝔽₂ · ROTL</text>
+
+  <rect x="510" y="125" width="580" height="66" class="block"/>
+  <text x="800" y="166" text-anchor="middle" class="label">Входное сообщение M</text>
+
+  <path d="M800 191 L800 225" class="wire"/>
+
+  <rect x="405" y="228" width="790" height="90" class="note"/>
+  <text x="800" y="264" text-anchor="middle" class="formula">P(M) = M ‖ 0ᵏ ‖ len₆₄(M)</text>
+  <text x="800" y="294" text-anchor="middle" class="small">k выбирается так, чтобы общая длина делилась на 256</text>
+
+  <path d="M800 318 L800 352" class="wire"/>
+
+  <text x="800" y="378" text-anchor="middle" class="small">Разбиение дополненного сообщения на 256-битные блоки</text>
+
+  <rect x="250" y="400" width="240" height="82" class="block"/>
+  <rect x="550" y="400" width="240" height="82" class="block"/>
+  <rect x="1110" y="400" width="240" height="82" class="block"/>
+  <text x="370" y="451" text-anchor="middle" class="label">s₁ · 256 бит</text>
+  <text x="670" y="451" text-anchor="middle" class="label">s₂ · 256 бит</text>
+  <text x="1230" y="451" text-anchor="middle" class="label">sₜ · 256 бит</text>
+  <text x="950" y="451" text-anchor="middle" class="title">…</text>
+
+  <path d="M370 482 L370 540" class="wire"/>
+  <path d="M670 482 L670 540" class="wire"/>
+  <path d="M1230 482 L1230 540" class="wire"/>
+
+  <ellipse cx="120" cy="610" rx="95" ry="70" class="state"/>
+  <text x="120" y="600" text-anchor="middle" class="label">IV = h₀</text>
+  <text x="120" y="629" text-anchor="middle" class="small">256 бит</text>
+
+  <rect x="235" y="540" width="270" height="140" class="mix"/>
+  <rect x="535" y="540" width="270" height="140" class="mix"/>
+  <rect x="1095" y="540" width="270" height="140" class="mix"/>
+  <text x="370" y="573" text-anchor="middle" class="label">f</text>
+  <text x="370" y="610" text-anchor="middle" class="small">v₁ = (h₀ ⊕ C) ⋆ (s₁ ⊕ C)</text>
+  <text x="370" y="644" text-anchor="middle" class="small">h₁ = ROTL(h₀ ⊕ s₁, 37) ⊕ v₁</text>
+  <text x="670" y="573" text-anchor="middle" class="label">f</text>
+  <text x="670" y="610" text-anchor="middle" class="small">v₂ = (h₁ ⊕ C) ⋆ (s₂ ⊕ C)</text>
+  <text x="670" y="644" text-anchor="middle" class="small">h₂ = ROTL(h₁ ⊕ s₂, 37) ⊕ v₂</text>
+  <text x="1230" y="573" text-anchor="middle" class="label">f</text>
+  <text x="1230" y="610" text-anchor="middle" class="small">vₜ = (hₜ₋₁ ⊕ C) ⋆ (sₜ ⊕ C)</text>
+  <text x="1230" y="644" text-anchor="middle" class="small">hₜ = ROTL(hₜ₋₁ ⊕ sₜ, 37) ⊕ vₜ</text>
+
+  <path d="M215 610 L235 610" class="wire"/>
+  <path d="M505 610 L535 610" class="wire"/>
+  <text x="520" y="594" text-anchor="middle" class="formula">h₁</text>
+  <path d="M805 610 L870 610" class="wire-no-arrow"/>
+  <text x="837" y="594" text-anchor="middle" class="formula">h₂</text>
+  <text x="950" y="623" text-anchor="middle" class="title">…</text>
+  <path d="M1030 610 L1095 610" class="wire"/>
+
+  <ellipse cx="1480" cy="610" rx="100" ry="70" class="state"/>
+  <text x="1480" y="600" text-anchor="middle" class="label">H(M) = hₜ</text>
+  <text x="1480" y="629" text-anchor="middle" class="small">256-битный хеш</text>
+  <path d="M1365 610 L1380 610" class="wire"/>
+
+  <rect x="110" y="720" width="1380" height="160" class="note"/>
+  <text x="145" y="757" class="formula">Булево произведение:</text>
+  <text x="405" y="757" class="formula">(a ⋆ b)ₖ = ⊕ⱼ aⱼ · b₍ₖ₋ⱼ₎ mod 256</text>
+  <text x="145" y="797" class="formula">Функция сжатия:</text>
+  <text x="405" y="797" class="formula">v = (h ⊕ C) ⋆ (s ⊕ C),   f(h,s) = ROTL₂₅₆(h ⊕ s, 37) ⊕ v</text>
+  <text x="145" y="837" class="formula">Начальный вектор:</text>
+  <text x="405" y="837" class="formula">h₀ = IV₀ ‖ IV₁ ‖ IV₂ ‖ IV₃,   IVᵢ = ⌊2⁶⁴ · frac(√(2ᑫⁱ − 1))⌋</text>
+  <text x="405" y="866" class="small">q = (31, 61, 89, 107); C — фиксированная 256-битная константа смешивания</text>
+</svg>
